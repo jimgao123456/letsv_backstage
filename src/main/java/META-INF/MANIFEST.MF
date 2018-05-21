@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Class-Path: spring-web-4.3.2.RELEASE.jar log4j-over-slf4j-1.7.21.jar j
+ ackson-core-2.8.1.jar hibernate-validator-5.2.4.Final.jar spring-boot
+ -1.4.0.RELEASE.jar tomcat-embed-el-8.5.4.jar logback-classic-1.1.7.ja
+ r jackson-annotations-2.8.1.jar spring-boot-starter-data-mongodb-1.4.
+ 0.RELEASE.jar spring-data-mongodb-1.9.2.RELEASE.jar spring-context-4.
+ 3.2.RELEASE.jar spring-expression-4.3.2.RELEASE.jar bson-3.2.2.jar sp
+ ring-boot-starter-1.4.0.RELEASE.jar freemarker-2.3.25-incubating.jar 
+ fastjson-1.1.43.jar snakeyaml-1.17.jar slf4j-api-1.7.21.jar spring-da
+ ta-commons-1.12.2.RELEASE.jar jboss-logging-3.3.0.Final.jar mongodb-d
+ river-3.2.2.jar spring-webmvc-4.3.2.RELEASE.jar logback-core-1.1.7.ja
+ r spring-boot-starter-tomcat-1.4.0.RELEASE.jar spring-tx-4.3.2.RELEAS
+ E.jar mongodb-driver-core-3.2.2.jar spring-context-support-4.3.2.RELE
+ ASE.jar spring-boot-starter-logging-1.4.0.RELEASE.jar spring-boot-sta
+ rter-freemarker-1.4.0.RELEASE.jar spring-core-4.3.2.RELEASE.jar class
+ mate-1.3.1.jar jcl-over-slf4j-1.7.21.jar springloaded-1.2.3.RELEASE.j
+ ar jul-to-slf4j-1.7.21.jar tomcat-embed-core-8.5.4.jar spring-boot-au
+ toconfigure-1.4.0.RELEASE.jar spring-beans-4.3.2.RELEASE.jar jackson-
+ databind-2.8.1.jar spring-boot-starter-web-1.4.0.RELEASE.jar validati
+ on-api-1.1.0.Final.jar tomcat-embed-websocket-8.5.4.jar spring-aop-4.
+ 3.2.RELEASE.jar
+Main-Class: com.letsv.Main
+
