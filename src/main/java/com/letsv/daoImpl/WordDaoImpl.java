@@ -20,12 +20,13 @@ public class WordDaoImpl implements WordDao {
 	@Override
 	public Word findWordByName(String name) {
 		Query query=new Query(Criteria.where("word").is(name));
-		Word word =  mongoTemplate.findOne(query , Word.class);
-		return word;
+		return mongoTemplate.findOne(query , Word.class);
 	}
 
 	@Override
 	public void saveWord(Word word) {
 		mongoTemplate.save(word);
 	}
+
+
 }
