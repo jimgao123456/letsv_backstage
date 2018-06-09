@@ -57,7 +57,8 @@ public class WordServiceImpl implements WordService {
 			Document document = reader.build(new StringReader(xml));
 			Element root=document.getRootElement();
 			Element ps=root.getChild("ps");
-			map.put("ps","["+ps.getText()+"]");
+			if(ps!=null) map.put("ps","["+ps.getText()+"]");
+			else map.put("ps","["+"]");
 			List pos=root.getChildren("pos");
 			List acceptation=root.getChildren("acceptation");
 			StringBuilder meaning= new StringBuilder();
