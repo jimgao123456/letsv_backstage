@@ -22,11 +22,12 @@ public class UserController {
 	}
 	@PostMapping("/login")
 	public @ResponseBody Map<String,Object> login(String username, String password) {
-		boolean result=loginService.login(username,password);
+		String result=loginService.login(username,password);
 		Map<String, Object> map = new HashMap<>();
-		if(result) {
+		if(result!=null) {
 			map.put("state", 0);
 			map.put("message", "登陆成功");
+			map.put("nickname",result);
 		}else{
 			map.put("state", 1);
 			map.put("message", "用户名或密码错误");
@@ -35,8 +36,8 @@ public class UserController {
 	}
 
 	@PostMapping("/register")
-	public @ResponseBody Map<String,Object> register(String username, String password) {
-		int result=registerService.register(username,password);
+	public @ResponseBody Map<String,Object> register(String username, String password,String nickname) {
+		int result=registerService.register(username,password,nickname);
 		Map<String, Object> map = new HashMap<>();
 		if(result==0) {
 			map.put("state", 0);

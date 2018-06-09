@@ -19,13 +19,13 @@ public class RegisterServiceImpl implements RegisterService{
 	}
 
 	@Override
-	public int register(String username, String password) {
+	public int register(String username, String password,String nickname) {
 		User user=userDao.findUserByUserName(username);
 		if(user!=null) return 1;
 		Pattern pattern = Pattern.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$");
 		Matcher m = pattern.matcher(password);
 		if(!m.matches()) return 2;
-		userDao.saveUser(new User(username,password));
+		userDao.saveUser(new User(username,password,nickname));
 		return 0;
 	}
 }
