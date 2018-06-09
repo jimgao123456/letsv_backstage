@@ -1,6 +1,7 @@
 package com.letsv.serviceImpl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.letsv.common.HttpUtils;
 import com.letsv.dao.UserDao;
 import com.letsv.dao.WordDao;
 import com.letsv.model.Word;
@@ -29,7 +30,15 @@ public class WordServiceImpl implements WordService {
 	}
 	@Override
 	public String getWord(String word) {
-		return wordDao.findWordByName(word).getWordJson();
+		Word word1=wordDao.findWordByName(word);
+		if(word1!=null) return word1.getWordJson();
+		else {
+			word1=new Word();
+			word1.setWord(word);
+			word1.setWordJson(getWordXML(word));
+			wordDao.saveWord(word1);
+		}
+		return word1.getWordJson();
 	}
 
 	@Override
@@ -74,5 +83,11 @@ public class WordServiceImpl implements WordService {
 			e.printStackTrace();
 		}
 		return map;
+	}
+	private static String getWordXML(String word){
+		HashMap<String,String> map= new HashMap<>();
+		map.put("key","3BB2876813D6B3623E1AA46BDF6CC59C");
+		map.put("w",word);
+		return HttpUtils.sendGet("http://dict-co.iciba.com/api/dictionary.php",map);
 	}
 }
