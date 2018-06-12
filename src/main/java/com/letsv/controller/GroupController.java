@@ -84,6 +84,7 @@ public class GroupController {
 		map.put("1",s[1]);
 		map.put("2",s[2]);
 		map.put("3",s[3]);
+		map.put("correct", ""+rightans);
 		return map;
 	}
 }
