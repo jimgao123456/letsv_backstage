@@ -52,6 +52,13 @@ public class GroupController {
 		return map;
 	}
 
+	@PostMapping("/changeplan")
+	public @ResponseBody Map<String,Object> updateGroup(String username,int level){
+		groupService.changePlan(username,level);
+		Map<String,Object> map=new HashMap<>();
+		map.put("success","0");
+		return map;
+	}
 	@PostMapping("testword")
 	public @ResponseBody Map<String,Object> testWord(String word){
 		Map<String,Object> map=new HashMap<>();

@@ -8,4 +8,5 @@ public interface GroupService {
 	List<String> getGroupWord(String word);
 	void addGroup(int id,String word);
 	void updateGroupUser(String username);
+	void changePlan(String username,int id);
 }

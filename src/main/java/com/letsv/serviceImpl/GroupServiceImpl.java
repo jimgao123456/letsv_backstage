@@ -42,5 +42,22 @@ public class GroupServiceImpl implements GroupService{
 		groupDao.updateGroupPos(username,id+1);
 	}
 
+	@Override
+	public void changePlan(String username,int num) {
+		int id=groupDao.getGroupPosByUsername(username);
+		switch (num){
+			case 0:
+				groupDao.updateGroupPos(username,0);
+				break;
+			case 1:
+				groupDao.updateGroupPos(username,1301);
+				break;
+			case 2:
+				groupDao.updateGroupPos(username,1501);
+				break;
+		}
+
+	}
+
 
 }
