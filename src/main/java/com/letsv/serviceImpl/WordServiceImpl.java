@@ -2,9 +2,11 @@ package com.letsv.serviceImpl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.letsv.common.HttpUtils;
+import com.letsv.dao.GroupDao;
 import com.letsv.dao.UserDao;
 import com.letsv.dao.WordDao;
 import com.letsv.model.Word;
+import com.letsv.service.GroupService;
 import com.letsv.service.WordService;
 import org.dom4j.io.SAXReader;
 import org.jdom.Document;
@@ -23,7 +25,6 @@ import java.util.Map;
 @Service("WordService")
 public class WordServiceImpl implements WordService {
 	private final WordDao wordDao ;
-
 	@Autowired
 	public WordServiceImpl(WordDao wordDao) {
 		this.wordDao = wordDao;
@@ -79,9 +80,42 @@ public class WordServiceImpl implements WordService {
 				map.put("content"+num,"<font color='#cccccc'>"+orig.getText()+"</font><font color='#8f8f8f'>   [来自官方]</font><br><font color='#cccccc'>"+trans.getText()+"</font><br>");
 				num++;
 			}
-
 		} catch (JDOMException | IOException e) {
 			e.printStackTrace();
+		}
+		return map;
+	}
+	@Override
+	public String getGroupString(List<String> words){
+		StringBuilder stringBuilder=new StringBuilder();
+		for(String word:words){
+			Map<String,Object> map=wordToJson(word);
+			stringBuilder.append(word).append(" ");
+			String meaning=map.get("meaning").toString();
+			String[] split=meaning.split("\r\n");
+			stringBuilder.append(split[0]);
+			stringBuilder.append("\r\n");
+		}
+		return stringBuilder.toString();
+	}
+
+	@Override
+	public Map<String,String> getGroupMeaning(List<String> words){
+		Map<String,String> map=new HashMap<>();
+		for(String word:words){
+			String xml=getWord(word);
+			SAXBuilder reader = new SAXBuilder();
+			String explanation="这是一个选项";
+			try {
+				Document document = reader.build(new StringReader(xml));
+				Element root = document.getRootElement();
+				List acceptation=root.getChildren("acceptation");
+				Element oacceptation = (Element) acceptation.get(0);
+				explanation = oacceptation.getText();
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+			map.put(word,explanation);
 		}
 		return map;
 	}

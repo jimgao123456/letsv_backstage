@@ -11,8 +11,7 @@ import java.util.Map;
 @Controller
 public class AudioController {
 	@PostMapping("/audio")
-	public @ResponseBody
-	Map<String,Object> login(int number) {
+	public @ResponseBody Map<String,Object> login(int number) {
 
 		Map<String, Object> map = new HashMap<>();
 		String word="apple";

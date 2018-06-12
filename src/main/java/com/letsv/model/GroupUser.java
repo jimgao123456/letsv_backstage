@@ -1,14 +1,14 @@
 package com.letsv.model;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 
-public class GroupWord implements Serializable{
+public class GroupUser implements Serializable {
 	private String id;
 	private String tid;
-	private String word;
-	public GroupWord(){
+	private String username;
+
+	public GroupUser(){
 		this.id= UUID.randomUUID().toString();
 	}
 	public String getId() {
@@ -19,12 +19,11 @@ public class GroupWord implements Serializable{
 		this.tid = id;
 	}
 
-	public String getWord() {
-		return word;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setWord(String word) {
-		this.word = word;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-
 }

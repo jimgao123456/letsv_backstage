@@ -1,6 +1,8 @@
 package com.letsv.serviceImpl;
 
+import com.letsv.dao.GroupDao;
 import com.letsv.dao.UserDao;
+import com.letsv.model.GroupUser;
 import com.letsv.model.User;
 import com.letsv.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,11 @@ import java.util.regex.Pattern;
 @Service("RegisterService")
 public class RegisterServiceImpl implements RegisterService{
 	private final UserDao userDao;
-
+	private final GroupDao groupDao;
 	@Autowired
-	public RegisterServiceImpl(UserDao userDao) {
+	public RegisterServiceImpl(UserDao userDao,GroupDao groupDao) {
 		this.userDao = userDao;
+		this.groupDao=groupDao;
 	}
 
 	@Override
@@ -26,6 +29,7 @@ public class RegisterServiceImpl implements RegisterService{
 		Matcher m = pattern.matcher(password);
 		if(!m.matches()) return 2;
 		userDao.saveUser(new User(username,password,nickname));
+		groupDao.saveGroupPos(0,username);
 		return 0;
 	}
 }
