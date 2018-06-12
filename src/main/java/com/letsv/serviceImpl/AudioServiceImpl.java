@@ -52,20 +52,24 @@ public class AudioServiceImpl implements AudioService {
     @Override
     public Map<String, Object> getWholeAudio(String audioId) {
         Audio audio = findAudioById(audioId);
-        List<AudioContent> audioContentList = getAudioContent(audioId);
-        Map<String, Object> audiomap = new HashMap<>();
-        audiomap.put("audioId", audio.getAudioId());
-        audiomap.put("title", audio.getTitle());
-        audiomap.put("date", audio.getDate());
-        audiomap.put("imageUrl", audio.getImageUrl());
-        audiomap.put("audioUrl", audio.getAudioUrl());
-
-        Map<String,String> audioContentMap = new HashMap<>();
-        for (AudioContent audioContent : audioContentList){
-            audioContentMap.put(audioContent.getTime(),audioContent.getContent());
-        }
-        audiomap.put("content", audioContentMap);
-
+	    List<AudioContent> audioContentList;
+	    Map<String, Object> audiomap = new HashMap<>();
+	    if(audio!=null){
+	    	audioContentList=getAudioContent(audioId);
+		    audiomap.put("audioId", audio.getAudioId());
+		    audiomap.put("title", audio.getTitle());
+		    audiomap.put("date", audio.getDate());
+		    audiomap.put("imageUrl", audio.getImageUrl());
+		    audiomap.put("audioUrl", audio.getAudioUrl());
+		    Map<String,String> audioContentMap = new HashMap<>();
+		    for (AudioContent audioContent : audioContentList){
+			    audioContentMap.put(audioContent.getTime(),audioContent.getContent());
+		    }
+		    audiomap.put("content", audioContentMap);
+		    audiomap.put("success",0);
+	    }else {
+		    audiomap.put("success",1);
+	    }
         return audiomap;
     }
 

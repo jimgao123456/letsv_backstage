@@ -42,15 +42,19 @@ public class PassageController {
     @PostMapping("/passagecontent")
     public @ResponseBody Map<String,String> getPassage(String passageid) {
         Passage passage = passageService.getPassageById(passageid);
-
         Map<String,String> passagemap = new HashMap<>();
-        passagemap.put("passageId", passage.getPassageId());
-        passagemap.put("title", passage.getTitle());
-        passagemap.put("date", passage.getDate());
-        passagemap.put("type", passage.getType());
-        passagemap.put("imageUrl", passage.getImageUrl());
-        passagemap.put("content", passage.getContent());
-        passagemap.put("wordNumber", "" + passage.getWordNumber());
+        if(passage!=null){
+	        passagemap.put("passageId", passage.getPassageId());
+	        passagemap.put("title", passage.getTitle());
+	        passagemap.put("date", passage.getDate());
+	        passagemap.put("type", passage.getType());
+	        passagemap.put("imageUrl", passage.getImageUrl());
+	        passagemap.put("content", passage.getContent());
+	        passagemap.put("wordNumber", "" + passage.getWordNumber());
+	        passagemap.put("success","0");
+        }else {
+        	passagemap.put("success","1");
+        }
         return passagemap;
     }
 
