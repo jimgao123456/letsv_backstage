@@ -1,5 +1,6 @@
 package com.letsv.controller;
 
+import com.letsv.service.GroupService;
 import com.letsv.service.LoginService;
 import com.letsv.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,12 @@ import java.util.Map;
 public class UserController {
 	private final RegisterService registerService;
 	private final LoginService loginService;
+	private final GroupService groupService;
 	@Autowired
-	public UserController(RegisterService registerService,LoginService loginService) {
+	public UserController(RegisterService registerService,LoginService loginService,GroupService groupService) {
 		this.registerService = registerService;
 		this.loginService=loginService;
+		this.groupService=groupService;
 	}
 	@PostMapping("/login")
 	public @ResponseBody Map<String,Object> login(String username, String password) {
@@ -28,6 +31,13 @@ public class UserController {
 			map.put("state", 0);
 			map.put("message", "登陆成功");
 			map.put("nickname",result);
+			int id=groupService.getGroupID(username);
+			if(id>=0 && id<=1300)
+				map.put("plan",0);
+			else if(id<=1500)
+				map.put("plan",1);
+			else
+				map.put("plan",2);
 		}else{
 			map.put("state", 1);
 			map.put("message", "用户名或密码错误");

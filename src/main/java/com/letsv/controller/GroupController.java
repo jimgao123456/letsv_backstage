@@ -59,6 +59,7 @@ public class GroupController {
 		map.put("success","0");
 		return map;
 	}
+
 	@PostMapping("testword")
 	public @ResponseBody Map<String,Object> testWord(String word){
 		Map<String,Object> map=new HashMap<>();
