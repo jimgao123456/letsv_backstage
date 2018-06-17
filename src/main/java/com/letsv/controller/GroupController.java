@@ -37,10 +37,15 @@ public class GroupController {
 	public @ResponseBody Map<String,Object> getGroup(String username){
 		int id=groupService.getGroupID(username);
 		List<String> group=groupService.getGroupWord(id);
+		StringBuilder temp= new StringBuilder();
+		for(String s:group){
+			temp.append(s).append(" ");
+		}
 		String s=wordService.getGroupString(group);
 		Map<String,Object> map=new HashMap<>();
 		map.put("words",s);
 		map.put("memory","相似单词组");
+		map.put("word",temp.toString());
 		return map;
 	}
 
