@@ -1,5 +1,6 @@
 package com.letsv.daoImpl;
 
+import com.letsv.common.DES;
 import com.letsv.dao.UserDao;
 import com.letsv.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,37 +15,54 @@ import org.springframework.stereotype.Component;
 public class UserDaoImpl implements UserDao {
 
 	private final MongoTemplate mongoTemplate;
-
+	private static final String secretstr="asfnjadkgoiahgoiahdgaoligfa=3";
 	@Autowired
 	public UserDaoImpl(MongoTemplate mongoTemplate) {
 		this.mongoTemplate = mongoTemplate;
 	}
 
-	/**
-	 * 创建对象
-	 * @param user
-	 */
+
 	@Override
 	public void saveUser(User user) {
+		String username=user.getUserName();
+		String password=user.getPassWord();
+		String nickname=user.getNickname();
+		byte[] result = DES.encrypt(username.getBytes(),secretstr);
+		if (result==null) return;
+		user.setUserName(new String(result));
+		result = DES.encrypt(password.getBytes(),secretstr);
+		if (result==null) return;
+		user.setPassWord(new String(result));
+		result = DES.encrypt(nickname.getBytes(),secretstr);
+		if (result==null) return;
+		user.setNickname(new String(result));
 		mongoTemplate.save(user);
 	}
 
-	/**
-	 * 根据用户名查询对象
-	 * @param userName
-	 * @return
-	 */
+
 	@Override
 	public User findUserByUserName(String userName) {
-		Query query=new Query(Criteria.where("userName").is(userName));
-		User user =  mongoTemplate.findOne(query , User.class);
-		return user;
+		try {
+			byte[] result=DES.encrypt(userName.getBytes(),secretstr);
+			if(result==null) throw new Exception();
+			userName=new String(result);
+			Query query=new Query(Criteria.where("userName").is(userName));
+			User user =  mongoTemplate.findOne(query , User.class);
+			result=DES.decrypt(user.getUserName().getBytes(),secretstr);
+			user.setUserName(new String(result));
+			result=DES.decrypt(user.getPassWord().getBytes(),secretstr);
+			user.setPassWord(new String(result));
+			result=DES.decrypt(user.getNickname().getBytes(),secretstr);
+			user.setNickname(new String(result));
+			return user;
+		} catch (Exception e) {
+			return null;
+		}
+
+
 	}
 
-	/**
-	 * 更新对象
-	 * @param user
-	 */
+
 	@Override
 	public void updateUser(User user) {
 		Query query=new Query(Criteria.where("id").is(user.getId()));
@@ -55,10 +73,7 @@ public class UserDaoImpl implements UserDao {
 		// mongoTemplate.updateMulti(query,update,UserEntity.class);
 	}
 
-	/**
-	 * 删除对象
-	 * @param id
-	 */
+
 	@Override
 	public void deleteUserById(Long id) {
 		Query query=new Query(Criteria.where("id").is(id));
