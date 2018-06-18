@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 public class UserController {
@@ -42,6 +43,7 @@ public class UserController {
 			map.put("state", 1);
 			map.put("message", "用户名或密码错误");
 		}
+		map.put("token", UUID.randomUUID().toString());
 		return map;
 	}
 
@@ -62,6 +64,7 @@ public class UserController {
 			map.put("state", 1);
 			map.put("message", "服务器炸了");
 		}
+		map.put("token", UUID.randomUUID().toString());
 		return map;
 	}
 
