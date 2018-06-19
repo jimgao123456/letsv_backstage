@@ -12,22 +12,22 @@ public class DES {
 	public DES() {
 	}
 	//测试
-	public static void main(String args[]) {
-//		//待加密内容
-//		String str = "cryptology";
-//		//密码，长度要是8的倍数
-//		String password = "95880288";
-//
-//		byte[] result = DES.encrypt(str.getBytes(),password);
-//		System.out.println("加密后："+new String(result));
-//		//直接将如上内容解密
-//		try {
-//			byte[] decryResult = DES.decrypt(result, password);
-//			System.out.println("解密后："+new String(decryResult));
-//		} catch (Exception e1) {
-//			e1.printStackTrace();
-//		}
-	}
+//	public static void main(String args[]) {
+////		//待加密内容
+////		String str = "cryptology";
+////		//密码，长度要是8的倍数
+////		String password = "95880288";
+////
+////		byte[] result = DES.encrypt(str.getBytes(),password);
+////		System.out.println("加密后："+new String(result));
+////		//直接将如上内容解密
+////		try {
+////			byte[] decryResult = DES.decrypt(result, password);
+////			System.out.println("解密后："+new String(decryResult));
+////		} catch (Exception e1) {
+////			e1.printStackTrace();
+////		}
+//	}
 
 
 	public static  byte[] encrypt(byte[] datasource, String password) {
